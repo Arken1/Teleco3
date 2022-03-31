@@ -1,0 +1,21 @@
+# Configurar el archivo principal del dns
+vim /etc/named.conf
+Aqui se debe configurar la ip del maestro,el esclavo y las 2 zonas.
+# Copiar los archivos para configurar las zonas
+cp /var/named/named.localhost /var/named/miempresa.fwd.zone
+cp /var/named/named.loopback /var/named/miempresa.rev.zone
+# Configurar las zonas
+vim /var/named/miempresa.fwd.zone
+vim /var/named/miempresa.rev.zone
+
+# Verificar la propiedad de los archivos
+ls-l /var/named/
+# Cambia la propiedad del archivo de root a named
+chgrp named /var/named/miempresa.fwd.zone
+chgrp named /var/named/miempresa.rev.zone
+
+# Revisa configuracion
+named-checkconf /etc/named.conf
+# Revisa configuracion de las zonas
+named-checkzone servidor3.miempresa.com /var/named/miempresa.fwd.zone
+named-checkzone servidor3.miempresa.com /var/named/miempresa.rev.zone
