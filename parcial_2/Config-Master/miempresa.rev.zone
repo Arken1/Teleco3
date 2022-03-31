@@ -1,0 +1,22 @@
+
+$TTL 3H
+@       IN SOA servidor3.miempresa.com root@miempresa.com. (
+                                        1002    ; serial
+                                        3H      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+;Name Server's 
+@         IN      NS    servidor3.miempresa.com.
+@         IN      NS    servidor2.miempresa.com.
+
+;Name Server Hostname to ip resolv
+
+servidor3       IN      A     192.168.0.200
+servidor2       In      A     192.168.0.201 
+
+;HOST in Domain
+
+200         IN        PTR       servidor3.miempresa.com.
+201         IN        PTR       servidor2.miempresa.com.
+202         IN        PTR       firewall.miempresa.com.  
