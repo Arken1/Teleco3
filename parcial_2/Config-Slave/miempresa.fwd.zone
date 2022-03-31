@@ -3,7 +3,7 @@ $TTL 3H
 @       IN SOA servidor3.miempresa.com root@miempresa.com. (
                                         1002    ; serial
                                         3H      ; refresh
-                                        1H      ; retry
+                                        15M      ; retry
                                         1W      ; expire
                                         3H )    ; minimum
 ;Name Server's
