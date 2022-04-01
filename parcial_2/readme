@@ -1,3 +1,10 @@
 En esta carpeta se encuentra contenido el parcial 2 de telecomunicaciones 3 en el cual se hace una configuracion de un dns maestro-esclavo y se realizan peticiones usando un firewalld como proteccion o seguridad.
 
 INTEGRANTES:  JUAN CAMILO AGREDO - SERGIO BOLANOS
+
+REFERENCIAS WEB CONSULTADAS: 
+[1] https://www.redeszone.net/tutoriales/internet/nslookup-resolucion-dns-windows/
+[2] https://access.redhat.com/documentation/es-es/red_hat_enterprise_linux/8/html/using_selinux/enabling_and_disabling_selinux-disabling_selinux_changing-selinux-states-and-modes
+[3] https://es.linux-console.net/?p=888#:~:text=Los%20servidores%20DNS%20maestros%20
+[4] https://www.youtube.com/watch?v=tw0e1jEUSkE
+[5] https://noviello.it/es/como-configurar-el-servidor-ftp-con-vsftpd-en-centos-8-linux/
