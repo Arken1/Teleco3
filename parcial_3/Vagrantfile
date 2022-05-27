@@ -1,0 +1,62 @@
+Vagrant.configure("2") do |config|
+
+if Vagrant.has_plugin? "vagrant-vbguest"
+config.vbguest.no_install = true
+config.vbguest.auto_update = false
+config.vbguest.no_remote = true
+end
+
+config.vm.define :streama do |streama|
+##config.vm.customize ["streama", :id, "--memory", 3072]
+streama.vm.box = "centos/7"
+streama.vm.network :private_network, ip: "192.168.100.2"
+streama.vm.hostname = "streama"
+streama.vm.provision "file", source: "streama.service", destination: "/home/vagrant/streama.service"
+streama.vm.provision "shell", inline: <<-SHELL
+
+sudo setenforce 0
+sudo yum -y update
+sudo yum -y install wget
+sudo yum -y install vim
+
+sudo mv streama.service /etc/systemd/system/streama.service
+sudo wget --no-cookies --no-check-certificate --header "Cookie:oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm"
+sudo yum -y localinstall jdk-8u131-linux-x64.rpm
+sudo wget https://github.com/dularion/streama/releases/download/v1.1/streama-1.1.war
+sudo mkdir /opt/streama
+sudo mv streama-1.1.war /opt/streama/streama.war
+sudo mkdir /opt/streama/media
+sudo chmod 777 /opt/streama/media
+SHELL
+end
+
+
+
+
+config.vm.define :firewall do |firewall|
+firewall.vm.box = "centos/7"
+firewall.vm.network :private_network, ip: "192.168.100.3"
+firewall.vm.network :private_network, ip: "209.191.100.3"
+firewall.vm.hostname = "firewall"
+firewall.vm.provision "file", source: "sysctl.conf", destination: "/home/vagrant/sysctl.conf"
+firewall.vm.provision "shell", inline: <<-SHELL
+sudo -i
+service NetworkManager stop
+chkconfig NetworkManager off
+cp /home/vagrant/sysctl.conf /etc/sysctl.conf 
+service firewalld restart
+firewall-cmd --zone=dmz --add-interface=eth2 --permanent
+firewall-cmd --zone=internal --add-interface=eth1 --permanent
+firewall-cmd --zone=dmz --add-service=http --permanent
+firewall-cmd --zone=dmz --add-service=https --permanent
+firewall-cmd --zone=dmz --add-forward-port=port=80:proto=tcp:toport=8080:toaddr=192.168.100.2 --permanent
+firewall-cmd --zone=dmz --add-forward-port=port=443:proto=tcp:toport=8080:toaddr=192.168.100.2 --permanent
+firewall-cmd --zone=dmz --add-forward-port=port=8080:proto=tcp:toport=8080:toaddr=192.168.100.2 --permanent
+firewall-cmd --zone=dmz --add-masquerade --permanent
+firewall-cmd --zone=internal --add-masquerade --permanent
+firewall-cmd --reload
+service firewalld restart
+SHELL
+end
+
+end

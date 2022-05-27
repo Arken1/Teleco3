@@ -1,0 +1,9 @@
+Add nuevo libro
+curl -i -H "Content-Type: application/json" -X POST -d '{"title":"El libro"}' http://192.168.50.3:5000/books
+
+
+Consultas
+curl -i http://192.168.50.3:5000/books
+
+Actualizar un libro
+curl -i -H "Content-Type: application/json" -X PUT -d '{"author":"Sergio B"}' http://192.168.50.3:5000/books/3
