@@ -1,0 +1,54 @@
+Sendmail -- Local
+
+Conexion-> telnet 127.0.0.1 25 *el puerto es 25
+
+Saludar al servidor -> HELO localhost.localdomain
+
+-> MAIL FROM : <name_userlocal@localhost.localdomain>
+
+-> RCPT TO: <name_userlocal@localhost.localdomain>
+----------------------------------------------------
+DATA -> activa para escribir que se quiere enviar
+
+El mensaje debe terminar en una linea con un solo punto
+.
+^ justo como la linea de arriba.
+
+------------------------------------------------
+
+DOVECOT - POP
+
+Conexion -> telnet 127.0.0.1 110 *el puerto es 110
+
+USER name_user -> aqui el nombre donde se envio el correo
+
+PASS pass_user -> se escribe la contrase;a de este usuario
+
+STAT -> permite ver los correros que tiene el usuario
+
+LIST -> lista de correos
+
+RETR # -> este permite visualizar el correo deseado usando el numero de correos que tiene el usuario
+
+CORREO SEGURO connect
+openssl s_client -crlf -connect server.servicios.com:995
+-----------------------------------------------------------------------------------------
+
+DOVECOT - IMAP
+
+Conexion -> telnet 127.0.0.1 143 *el puerto es 143
+
+x LOGIN name_user pass_user -> aqui el nombre donde se envio el correo
+
+x SELECT inbox -> permite ver la bandeja de correos
+
+x FETCH 3 (flags body[header.fields (subjects)]) -> permite ver el asunto del mensaje
+
+x FETCH # (body[text]) -> Ver el cuerpo del mensaje
+
+x LOGOUT -> cierra la conexion con el servidor 
+
+
+CORREO SEGURO 
+
+openssl s_client -crlf -connect server.servicios.com:993

@@ -1,0 +1,21 @@
+Pedro Perez
+User: pepe
+pssd: 1234
+------------------
+Maria Martinez
+User: maria1
+pssd: 1234
+------------------
+Juan Gonzales
+User: juangzl
+pssd: 1234
+-------------------
+Usuarios Acceso Inventario
+User: ark
+pssd: 123
+**********
+User: tati
+pssd: 123
+**********
+User: muxus
+pssd: 123
